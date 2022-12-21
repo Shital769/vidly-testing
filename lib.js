@@ -1,3 +1,4 @@
+const db = require("./db");
 //Testing Numbers
 
 module.exports.absoulte = function (number) {
@@ -27,6 +28,9 @@ module.exports.registerUser = function (username) {
   return { id: new Date().getTime(), username: username };
 };
 
+//Mock functions
+module.exports.applyDiscount = function (order) {
+  const customer = db.getCustomerSync(order.customerId);
 
-
-
+  if (customer.points > 10) order.totalPrice *= 0.9;
+};
