@@ -4,8 +4,7 @@
   "description": "",
   "main": "db.js",
   "scripts": {
-
-    "test": "jest"
+    "test": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
