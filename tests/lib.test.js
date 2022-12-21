@@ -79,3 +79,6 @@ describe("registerUser", () => {
     expect(result.id).toBeGreaterThan(0);
   });
 });
+//Note: When testing exceptions, we need to wrap in fat arrow functions
+
+
