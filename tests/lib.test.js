@@ -1,5 +1,6 @@
 const lib = require("../lib");
 const db = require("../db");
+const mail = require("../mail");
 
 describe("absolute  ", () => {
   it("should return a positive number if input is positive", () => {
@@ -95,5 +96,26 @@ describe("applyDiscount", () => {
     const order = { customerId: 1, totalPrice: 10 };
     lib.applyDiscount(order);
     expect(order.totalPrice).toBe(9);
+  });
+});
+
+describe("notifyCustomer", () => {
+  it("should send an email to the customer", () => {
+    jest.mockFunction = jest.fn();
+
+    // mockFunction.mockReturnValue(1)
+    // mockFunction.mockResolvedValue(1)
+    // mockFunction.mockRejectedValue(new Error("some messages here.."))
+    // const result = await mockFunction()
+
+    db.getCustomerSync = jest.fn().mockReturnValue({ email: "a" });
+    mail.send = jest.fn();
+
+    lib.notifyCustomer({ customerId: 1 });
+
+    expect(mail.send).toHaveBeenCalled();
+    expect(mail.send.mock.calls[0][0]).toBe("a");
+    expect(mail.send.mock.calls[0][1]).toMatch(/order/);
+    
   });
 });
